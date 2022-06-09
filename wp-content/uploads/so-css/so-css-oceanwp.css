@@ -1,0 +1,19 @@
+a:focus,
+.focus a {
+    outline: none !important;
+}
+
+#site-header {
+    float: left;
+    width: 100%;
+		position: fixed;
+}
+
+#site-header-inner {
+		width: 100%;
+		max-width: 100%;
+}
+
+.pum-open.pum-open-overlay.pum-open-scrollable body>[aria-hidden] {
+  padding-right: 0 !important;
+}

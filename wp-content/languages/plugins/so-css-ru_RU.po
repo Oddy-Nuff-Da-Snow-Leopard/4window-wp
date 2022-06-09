@@ -1,0 +1,550 @@
+# Translation of Plugins - SiteOrigin CSS - Stable (latest release) in Russian
+# This file is distributed under the same license as the Plugins - SiteOrigin CSS - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2022-01-26 10:43:25+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: ru\n"
+"Project-Id-Version: Plugins - SiteOrigin CSS - Stable (latest release)\n"
+
+#: tpl/page.php:82
+msgid "Dark"
+msgstr "Темная"
+
+#: tpl/page.php:78
+msgid "Editor Theme"
+msgstr "Редактор тем"
+
+#: tpl/page.php:81
+msgid "Light"
+msgstr "Светлая"
+
+#: tpl/page.php:141
+msgid "Close"
+msgstr "Закрыть"
+
+#: tpl/page.php:107
+msgid "Close Expanded Mode"
+msgstr "Закрыть расширенный режим"
+
+#: tpl/page.php:106
+msgid "Open Expanded Mode"
+msgstr "Открыть расширенный режим"
+
+#: tpl/page.php:110
+msgid "Open Visual Mode"
+msgstr "Открыть визуальный режим"
+
+#: so-css.php:446
+msgid "Addons"
+msgstr "Дополнения"
+
+#: inc/controller-config.php:303
+msgid "Border Radius"
+msgstr "Скругление рамки"
+
+#: so-css.php:473
+msgid "Changes apply to the %s %s when the current theme is %s or its child themes"
+msgstr "Изменения применяются к %s %s, если текущей темой является %s или ее дочерние темы"
+
+#: so-css.php:468
+msgid "Editing CSS for: %s"
+msgstr "Редактирование CSS для: %s"
+
+#: so-css.php:493
+msgid "Revert to this revision"
+msgstr "Вернуться к этой редакции"
+
+#: so-css.php:480
+msgid "Save %s CSS"
+msgstr "Сохранить %s CSS"
+
+#: so-css.php:641
+msgid "No revisions yet."
+msgstr "Редакций пока нет."
+
+#: tpl/page.php:33
+msgid "Editing revision dated %s. Click %sRevert to this revision%s to keep using it."
+msgstr "Редактирование редакции от %s. Нажмите %sВернуться к этой редакции%s, чтобы продолжить ее использование."
+
+#: so-css.php:635
+msgid "Latest"
+msgstr "Последний"
+
+#: so-css.php:549 so-css.php:570 so-css.php:589
+msgid "Invalid nonce."
+msgstr "Недействительный nonce."
+
+#: so-css.php:548 so-css.php:569 so-css.php:588
+msgid "The supplied nonce is invalid."
+msgstr "Предоставленный nonce недействителен."
+
+#: tpl/js-templates.php:69
+msgid "Get a %sGoogle Font%s selector."
+msgstr "Получите селектор %sGoogle Font%s."
+
+#: tpl/page.php:49
+msgid "%sSiteOrigin Premium%s adds a <strong>Google Web Font</strong> selector to SiteOrigin CSS so you can easily change any font."
+msgstr "%sSiteOrigin Premium%s добавляет селектор <strong>Google Web Font</strong> в SiteOrigin CSS, чтобы вы могли легко изменить любой шрифт."
+
+#: tpl/page.php:47
+msgid "Get The Full Experience"
+msgstr "Получите полный опыт"
+
+#: tpl/js-templates.php:59
+msgid "Invalid URI. Please make sure you're using a URL from the same site."
+msgstr "Недопустимый URI. Убедитесь, что вы используете URL-адрес с того же сайта."
+
+#: inc/controller-config.php:9
+msgid "Text Color"
+msgstr "Цвет текста"
+
+#: inc/controller-config.php:16
+msgid "Font Size"
+msgstr "Размер шрифта"
+
+#: inc/controller-config.php:24
+msgid "Line Height"
+msgstr "Высота строки"
+
+#: so-css.php:635
+msgid "%d chars"
+msgstr "%d символов"
+
+#. Description of the plugin
+msgid "An advanced CSS editor from SiteOrigin."
+msgstr "Расширенный редактор CSS из SiteOrigin."
+
+#: tpl/page.php:69
+msgid "Are you sure you want to load this revision?"
+msgstr "Вы уверены, что хотите загрузить эту редакцию?"
+
+#: tpl/page.php:67
+msgid "CSS Revisions"
+msgstr "Редакции CSS"
+
+#: tpl/js-templates.php:8
+msgid "CSS Snippets"
+msgstr "CSS-фрагменты"
+
+#: tpl/page.php:58
+msgid "Dismiss"
+msgstr "Отклонить"
+
+#: tpl/page.php:57
+msgid "Getting Started Video"
+msgstr "Видео о начале работы"
+
+#. Author URI of the plugin
+msgid "https://siteorigin.com"
+msgstr "https://siteorigin.com"
+
+#. Plugin URI of the plugin
+msgid "https://siteorigin.com/css/"
+msgstr "https://siteorigin.com/css/"
+
+#: tpl/js-templates.php:26
+msgid "Insert Snippet"
+msgstr "Вставить фрагмент"
+
+#. Author of the plugin
+msgid "SiteOrigin"
+msgstr "SiteOrigin"
+
+#. Plugin Name of the plugin
+#: so-css.php:457
+msgid "SiteOrigin CSS"
+msgstr "SiteOrigin CSS"
+
+#: so-css.php:461 tpl/page.php:114 tpl/page.php:144
+msgid "Save CSS"
+msgstr "Сохранить CSS"
+
+#: tpl/inspector-templates.php:4
+msgid "Navigate To: "
+msgstr "Перейдите к: "
+
+#: tpl/js-templates.php:14
+msgid "Search Snippets"
+msgstr "Поиск фрагментов"
+
+#: tpl/page.php:28
+msgid "Site design updated."
+msgstr "Оформление сайта обновлено."
+
+#: inc/controller-config.php:32
+msgid "Font Weight"
+msgstr "Толщина шрифта"
+
+#: inc/controller-config.php:369
+msgid "Absolute"
+msgstr "Абсолютное"
+
+#: inc/controller-config.php:482 inc/controller-config.php:495
+#: inc/controller-config.php:508
+msgid "Auto"
+msgstr "Авто"
+
+#: inc/controller-config.php:189
+msgid "Background Color"
+msgstr "Цвет фона"
+
+#: inc/controller-config.php:196
+msgid "Background Image"
+msgstr "Фоновое изображение"
+
+#: inc/controller-config.php:204
+msgid "Background Position"
+msgstr "Позиция фона"
+
+#: inc/controller-config.php:211
+msgid "Background Repeat"
+msgstr "Повтор фона"
+
+#: inc/controller-config.php:224
+msgid "Background Size"
+msgstr "Размер фона"
+
+#: inc/controller-config.php:417
+msgid "Block"
+msgstr "Блок"
+
+#: inc/controller-config.php:38
+msgid "Bold"
+msgstr "Жирный"
+
+#: inc/controller-config.php:457
+msgid "Both"
+msgstr "И там, и там"
+
+#: inc/controller-config.php:239
+msgid "Box Shadow"
+msgstr "Тень блока"
+
+#: so-css.php:443
+msgid "CSS Editor"
+msgstr "Редактор CSS"
+
+#: inc/controller-config.php:105
+msgid "Capitalize"
+msgstr "Заглавные буквы"
+
+#: inc/controller-config.php:126
+msgid "Center"
+msgstr "По центру"
+
+#: inc/controller-config.php:449
+msgid "Clear"
+msgstr "Очистить"
+
+#: inc/controller-config.php:469
+msgid "Collapse"
+msgstr "Свернуть"
+
+#: so-css.php:264 so-css.php:303
+msgid "Custom CSS"
+msgstr "Пользовательский CSS"
+
+#: inc/controller-config.php:185
+msgid "Decoration"
+msgstr "Оформление"
+
+#: inc/controller-config.php:410
+msgid "Display"
+msgstr "Отображать"
+
+#: inc/controller-config.php:370
+msgid "Fixed"
+msgstr "Зафиксировать"
+
+#: inc/controller-config.php:418
+msgid "Flex"
+msgstr "Сгибать (Flex)"
+
+#: inc/controller-config.php:437
+msgid "Float"
+msgstr "Плавающий"
+
+#: inc/controller-config.php:112
+msgid "Font Family"
+msgstr "Семейство шрифтов"
+
+#: inc/controller-config.php:54
+msgid "Font Style"
+msgstr "Стиль шрифта"
+
+#: inc/controller-config.php:402
+msgid "Height"
+msgstr "Высота"
+
+#: inc/controller-config.php:468 inc/controller-config.php:480
+#: inc/controller-config.php:493 inc/controller-config.php:506
+msgid "Hidden"
+msgstr "Скрытый"
+
+#: inc/controller-config.php:373
+msgid "Inherit"
+msgstr "Наследовать"
+
+#: inc/controller-config.php:416
+msgid "Inline"
+msgstr "Встроить"
+
+#: inc/controller-config.php:419
+msgid "Inline Block"
+msgstr "Встроенный блок"
+
+#: inc/controller-config.php:61
+msgid "Italic"
+msgstr "Курсив"
+
+#: inc/controller-config.php:326
+msgid "Layout"
+msgstr "Макет"
+
+#: inc/controller-config.php:145
+msgid "Letter Spacing"
+msgstr "Межбуквенное расстояние"
+
+#: inc/controller-config.php:40
+msgid "Lighter"
+msgstr "Тонкий"
+
+#: inc/controller-config.php:78
+msgid "Line Through"
+msgstr "Перечёркнутый"
+
+#: inc/controller-config.php:422
+msgid "List Item"
+msgstr "Элемент списка"
+
+#: inc/controller-config.php:107
+msgid "Lowercase"
+msgstr "Нижний регистр"
+
+#: inc/controller-config.php:330
+msgid "Margin"
+msgstr "Внешний отступ"
+
+#: inc/controller-config.php:37 inc/controller-config.php:60
+#: inc/controller-config.php:93 inc/controller-config.php:164
+msgid "Normal"
+msgstr "Обычный"
+
+#: inc/controller-config.php:247
+msgid "Opacity"
+msgstr "Прозрачность"
+
+#: inc/controller-config.php:474
+msgid "Overflow"
+msgstr "Переполнение"
+
+#: inc/controller-config.php:77
+msgid "Overline"
+msgstr "Надстрочное подчеркивание"
+
+#: inc/controller-config.php:347
+msgid "Padding"
+msgstr "Внутренний отступ"
+
+#: inc/controller-config.php:364
+msgid "Position"
+msgstr "Позиция"
+
+#: inc/controller-config.php:371
+msgid "Relative"
+msgstr "Относительный"
+
+#: inc/controller-config.php:481 inc/controller-config.php:494
+#: inc/controller-config.php:507
+msgid "Scroll"
+msgstr "Прокручивать"
+
+#: so-css.php:373
+msgid "Select Image"
+msgstr "Выбрать изображение"
+
+#: inc/controller-config.php:372
+msgid "Static"
+msgstr "Статический"
+
+#: so-css.php:444
+msgid "Support"
+msgstr "Поддержка"
+
+#: inc/controller-config.php:424
+msgid "Table"
+msgstr "Таблица"
+
+#: inc/controller-config.php:119
+msgid "Text Align"
+msgstr "Выравнивание текста"
+
+#: inc/controller-config.php:138
+msgid "Text Indent"
+msgstr "Отступ текста"
+
+#: inc/controller-config.php:173
+msgid "Text Shadow"
+msgstr "Тень текста"
+
+#: inc/controller-config.php:76
+msgid "Underline"
+msgstr "Подчёркнутый"
+
+#: inc/controller-config.php:106
+msgid "Uppercase"
+msgstr "Верхний регистр"
+
+#: inc/controller-config.php:462
+msgid "Visibility"
+msgstr "Видимость"
+
+#: inc/controller-config.php:159
+msgid "White Space"
+msgstr "Пробелы"
+
+#: inc/controller-config.php:394
+msgid "Width"
+msgstr "Ширина"
+
+#: inc/controller-config.php:152
+msgid "Word Spacing"
+msgstr "Интервал между словами"
+
+#: inc/controller-config.php:513
+msgid "Z-Index"
+msgstr "Z-индекс"
+
+#: inc/controller-config.php:229
+msgid "auto"
+msgstr "авто"
+
+#: inc/controller-config.php:233
+msgid "contain"
+msgstr "содержит"
+
+#: inc/controller-config.php:232
+msgid "cover"
+msgstr "обложка (cover)"
+
+#: inc/controller-config.php:5
+msgid "Text"
+msgstr "Текст"
+
+#: inc/controller-config.php:59 inc/controller-config.php:75
+#: inc/controller-config.php:104 inc/controller-config.php:415
+#: inc/controller-config.php:442 inc/controller-config.php:454
+msgid "None"
+msgstr "Отсутствует"
+
+#: inc/controller-config.php:70
+msgid "Text Decoration"
+msgstr "Оформление текста"
+
+#: inc/controller-config.php:88
+msgid "Font Variant"
+msgstr "Вариант шрифта"
+
+#: inc/controller-config.php:94
+msgid "Small Caps"
+msgstr "Малые прописные"
+
+#: inc/controller-config.php:99
+msgid "Text Transform"
+msgstr "Преобразование текста"
+
+#: inc/controller-config.php:124 inc/controller-config.php:443
+#: inc/controller-config.php:455
+msgid "Left"
+msgstr "Слева"
+
+#: inc/controller-config.php:125 inc/controller-config.php:444
+#: inc/controller-config.php:456
+msgid "Right"
+msgstr "Справа"
+
+#: inc/controller-config.php:127
+msgid "Justify"
+msgstr "По ширине"
+
+#: inc/controller-config.php:219
+msgid "no-repeat"
+msgstr "Не повторять"
+
+#: inc/controller-config.php:230
+msgid "length"
+msgstr "Длина"
+
+#: inc/controller-config.php:231
+msgid "percentage"
+msgstr "процент"
+
+#: inc/controller-config.php:260
+msgid "Borders"
+msgstr "Рамки"
+
+#: inc/controller-config.php:378
+msgid "Absolute Position"
+msgstr "Абсолютная позиция"
+
+#: inc/controller-config.php:421
+msgid "Inline Table"
+msgstr "Встроенная таблица"
+
+#: inc/controller-config.php:426
+msgid "Table Column Group"
+msgstr "Группа столбцов таблицы"
+
+#: inc/controller-config.php:427
+msgid "Table Header Group"
+msgstr "Группа заголовков таблиц"
+
+#: inc/controller-config.php:429
+msgid "Table Row Group"
+msgstr "Группа строк таблицы"
+
+#: inc/controller-config.php:430
+msgid "Table Cell"
+msgstr "Ячейка таблицы"
+
+#: inc/controller-config.php:431
+msgid "Table Column"
+msgstr "Столбец таблицы"
+
+#: inc/controller-config.php:432
+msgid "Table Row"
+msgstr "Строка таблицы"
+
+#: so-css.php:372
+msgid "Select"
+msgstr "Выбрать"
+
+#: so-css.php:374
+msgid "Are you sure you want to leave without saving?"
+msgstr "Вы уверены, что хотите выйти без сохранения?"
+
+#: so-css.php:460
+msgid "Changes apply to %s and its child themes"
+msgstr "Изменения применяются к %s и его дочерним темам"
+
+#: inc/controller-config.php:467 inc/controller-config.php:479
+#: inc/controller-config.php:492 inc/controller-config.php:505
+msgid "Visible"
+msgstr "Видимый"
+
+#: so-css.php:306
+msgid "These changes will persist across updates so it's best to make all your changes here. "
+msgstr "Эти изменения будут сохраняться во всех обновлениях, поэтому лучше вносить все изменения здесь. "
+
+#: so-css.php:371
+msgid "Unchanged"
+msgstr "Без изменений"
+
+#: so-css.php:305
+msgid "SiteOrigin CSS adds any custom CSS you enter here into your site's header. "
+msgstr "SiteOrigin CSS добавляет любой пользовательский CSS, который вы вводите здесь, в заголовок вашего сайта. "
