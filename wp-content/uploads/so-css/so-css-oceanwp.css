@@ -1,6 +1,29 @@
-a:focus,
-.focus a {
-    outline: none !important;
+html.pum-open.pum-open-overlay, html.pum-open.pum-open-overlay.pum-open-fixed .pum-overlay {
+		padding-right: 0px !important;
+		overflow: visible;
+}
+
+.elementor-widget:not(:last-child)
+{
+		margin-bottom: 0px;
+}
+
+p {
+		margin: 0;
+}
+
+.fbc-page .fbc-wrap .fbc-items {
+		font-family: "Montserrat", Sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+        display: block;
+		    float: none;
+        text-align: center !important;
+    }
+
+#mega-menu-wrap-main_menu a
+{
+	font-weight: 600;
 }
 
 #site-header {
@@ -14,6 +37,22 @@ a:focus,
 		max-width: 100%;
 }
 
-.pum-open.pum-open-overlay.pum-open-scrollable body>[aria-hidden] {
-  padding-right: 0 !important;
+#footer-widgets .container {
+    width: 100%;
+    max-width: 100%;
+}
+
+a:focus 
+{
+	outline: none !important;
+}
+
+ /* anchor */
+.elementor-menu-anchor {
+  content: "";
+  display: block;
+  height: 120px; /* fixed header height*/
+  margin: -120px 0 0; /* negative fixed header height */
+  visibility: hidden;
+  pointer-events: none;
 }
