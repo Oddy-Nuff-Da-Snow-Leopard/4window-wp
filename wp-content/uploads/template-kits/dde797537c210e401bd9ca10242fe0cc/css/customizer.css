@@ -1,0 +1,38 @@
+/* Custom Embed Play Button */
+.envato-kit-169-play-button .elementor-custom-embed-play {
+	    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    width: 80px;
+    border-radius: 50%;
+    height: 80px;
+    border: 0;
+    box-shadow: 0 0 0 15px rgba(255,255,255,.4);
+	  -webkit-transition: .25s;
+	  -moz-transition: .25s;
+    transition: .25s;
+    background: #fff;
+}
+.envato-kit-169-play-button .eicon-play {
+	display: none;
+}
+.envato-kit-169-play-button .elementor-custom-embed-play:before {
+    position: absolute;
+    top: 50%;
+    margin-top: -7px;
+    left: 50%;
+    margin-left: -4px;
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 7px 0 7px 12px;
+    border-color: transparent transparent transparent #212529;
+}
+.envato-kit-169-play-button:hover .elementor-custom-embed-play {
+	    
+    box-shadow: 0 0 0 10px rgba(255,255,255,.2);
+}
