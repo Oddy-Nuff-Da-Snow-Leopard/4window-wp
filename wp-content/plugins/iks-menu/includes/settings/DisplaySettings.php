@@ -115,20 +115,34 @@ class DisplaySettings
     public function get_posts_count_settings()
     {
         return [
-            "display_posts_count" => [
+            "display_posts_count"   => [
             "key"     => "display_posts_count",
             "type"    => SettingsTypes::$checkbox,
             "label"   => Utils::t( "Display posts count" ),
             "default" => false,
         ],
-            "posts_count_format"  => [
+            "posts_count_format"    => [
             "key"         => "posts_count_format",
             "type"        => SettingsTypes::$text,
             "label"       => Utils::t( "Format" ),
             "description" => Utils::t( "You can format output with %VALUE%. For example \"(%VALUE%)\" or \"Count: %VALUE%\"" ),
             "default"     => "%VALUE%",
         ],
-            "display_zero_count"  => [
+            "posts_count_calc_type" => [
+            "key"         => "posts_count_calc_type",
+            "type"        => SettingsTypes::$select,
+            "label"       => Utils::t( "Calculation type" ),
+            "description" => Utils::t( "You can control how the values for the posts' counts are calculated." ),
+            "options"     => [ [
+            "id"    => "as_is",
+            "label" => Utils::t( "Show \"as is\"" ),
+        ], [
+            "id"    => "pad_count",
+            "label" => Utils::t( "Sum children (pad_count)" ),
+        ] ],
+            "default"     => "as_is",
+        ],
+            "display_zero_count"    => [
             "key"         => "display_zero_count",
             "type"        => SettingsTypes::$select,
             "label"       => Utils::t( "Display zero count" ),
@@ -142,7 +156,7 @@ class DisplaySettings
         ] ],
             "default"     => "show",
         ],
-            "stretch_text"        => [
+            "stretch_text"          => [
             "key"               => "stretch_text",
             "type"              => SettingsTypes::$select,
             "label"             => Utils::t( "Position" ),

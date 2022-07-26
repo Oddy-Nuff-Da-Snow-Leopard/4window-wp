@@ -150,7 +150,8 @@ class MenuDataManager
         
         if ( $taxonomy ) {
             $this->args = [
-                "taxonomy" => $taxonomy,
+                "taxonomy"   => $taxonomy,
+                "pad_counts" => $this->settings_manager->get_value( 'posts_count_calc_type' ) === 'pad_count',
             ];
             $this->save_args( [
                 "orderby",

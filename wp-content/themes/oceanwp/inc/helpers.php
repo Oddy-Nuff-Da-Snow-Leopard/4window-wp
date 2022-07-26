@@ -4904,7 +4904,7 @@ function oceanwp_admin_menu_logo_styles() {
 		$owp_tp_logo_style = '<style>#adminmenu #toplevel_page_oceanwp .wp-menu-image img { width: 25px; height: 25px; padding: 5px; }</style>';
 		echo $owp_tp_logo_style;
 	}
-add_action('admin_enqueue_scripts', 'oceanwp_admin_menu_logo_styles');
+add_action('admin_head', 'oceanwp_admin_menu_logo_styles');
 
 /**
  * Display Notice when Ocean Extra is outdated.
@@ -4932,55 +4932,30 @@ function ocean_oe_is_outdated_admin_notice() {
 add_action('admin_notices', 'ocean_oe_is_outdated_admin_notice');
 
 /**
- * Check if a template is Gutenberg and return the content.
+ * Check if a template is Gutenberg.
  *
  * @since 3.3.1
  * @var int $get_id  Post ID.
  */
-function ocean_do_template_content( $get_id ) {
+function ocean_is_block_template( $get_id ) {
 
 	if ( ! $get_id ) {
 		return;
 	}
 
-	$templates = get_posts(
-		array(
-			'post_type' => 'oceanwp_library',
-			'numberposts' => -1,
-			'post_status' => 'publish'
-		)
-	);
+	$template = get_post( $get_id );
+	$blocks   = array();
 
-	$blocks  = array();
-	$content = '';
-	$html    = '';
-
-	if ( ! empty ( $templates ) ) {
-		foreach ( $templates as $template ) {
-			if ( $template->ID === (int)$get_id ) {
-
-				$content = $template->post_content;
-				if ( $template && ! is_wp_error( $template ) ) {
-					$blocks = parse_blocks( $content );
-				}
-
-			}
-		}
+	if ( $template && ! is_wp_error( $template ) ) {
+		$blocks = parse_blocks( $template->post_content );
 	}
 
+	// check for Gutenberg page.
 	$is_gutenberg = ( ! empty( $blocks ) && '' !== $blocks[0]['blockName'] );
 
-	global $post;
-	$elementor = get_post_meta( $post->ID, '_elementor_edit_mode', true );
-
-	if ( $is_gutenberg ) {
-		if ( ! ( OCEANWP_ELEMENTOR_ACTIVE && $elementor ) ) {
-			$content = apply_filters( 'the_content', do_blocks( $content ) );
-		}
-		$html = do_blocks( $content );
-	} else {
-		$html = do_shortcode( $content );
-	}
-
-	return $html;
+    if ( $is_gutenberg ) {
+        return true;
+    } else {
+        return false;
+    }
 }

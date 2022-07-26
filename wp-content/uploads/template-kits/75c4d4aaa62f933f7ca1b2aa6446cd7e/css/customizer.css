@@ -1,0 +1,44 @@
+/* Kit 85 Custom Styling - apply these classes to the Advanced tab of the element to affect */
+
+/* forms */
+
+.envato-kit-85-booking label{
+	padding: 1em 10px;
+
+}
+.envato-kit-85-booking select, .envato-kit-85-booking textarea{
+	border-radius: 10px !important;
+    padding: 15px !important;
+}
+/* large screen scaling */
+@media screen and (max-width: 1680px){
+.envato-kit-85-laptop{
+	padding: 2% 20% !important;
+	margin-bottom: 0 !important;
+}
+
+.envato-kit-85-laptop .elementor-spacer-inner{
+	height: 360px !important;
+}
+.envato-kit-85-laptop h1{
+	font-size: 3rem !important;
+	}
+}
+.envato-kit-85-video-fix iframe{
+	top: 40% !important;
+}
+@media (min-width: 1025px) and (max-width: 1440px){
+	.envato-kit-85-fs-contact section{max-width: 1440px !important;}
+	.envato-kit-85-fs-contact .elementor-row{flex-wrap: wrap;}
+.envato-kit-85-fs-contact .elementor-top-column{
+	width: 100% !important;
+	display: block;
+}
+	.envato-kit-85-fs-contact .elementor-spacer-inner{
+		height: 60vh !important;
+	}
+	.envato-kit-85-fs-contact .envato-kit-85-fs-contact-c1 .elementor-column-wrap{
+		background-size: cover !important;
+		background-position: 20% 50% !important;
+	max-height: 600px !important;} 
+}
