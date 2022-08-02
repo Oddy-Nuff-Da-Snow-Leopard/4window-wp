@@ -79,3 +79,11 @@ a:focus {
 body .plwao-loader-wrap {
 		overflow: visible !important;
 }
+
+.vp-portfolio__items-style-fade:hover {
+	filter: brightness( 100% ) contrast( 100% ) saturate( 100% ) blur( 0px ) hue-rotate( 0deg );
+}
+
+.vp-portfolio__items-style-fade {
+  --vp-items-style-fade--image-hover__transform: scale(1.02);
+}
