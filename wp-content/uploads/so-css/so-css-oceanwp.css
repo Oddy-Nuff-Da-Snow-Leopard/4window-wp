@@ -102,3 +102,7 @@ body .plwao-loader-wrap {
 body {
 		width: 100%;
 }
+		
+.ekit-wid-con .elementskit-info-image-box.style-modern .elementskit-box-body {
+  border-radius: 0 !important;
+}
