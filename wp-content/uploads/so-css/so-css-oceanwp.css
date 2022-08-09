@@ -107,6 +107,14 @@ body {
   border-radius: 0 !important;
 }
 
-.elementor-7 .elementor-element.elementor-element-3ec1f42 .elementskit-info-image-box.style-modern .elementskit-box-body {
-		
+.vp-portfolio__items-arrow.vp-portfolio__items-arrow-prev {
+		background-color: grey;
+}
+
+.vp-portfolio__items-arrow.vp-portfolio__items-arrow-next {
+		background-color: grey;
+}
+
+.vp-svg-icon {
+	color: black;
 }
