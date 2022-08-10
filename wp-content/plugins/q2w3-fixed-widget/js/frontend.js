@@ -28,7 +28,7 @@ var reactive = function (getter, interval) {
     if (interval === void 0) { interval = 300; }
     var subs = [];
     var v = getter();
-    setInterval(check, interval);
+    var interval_id = setInterval(check, interval);
     function check() {
         if (subs.length === 0) {
             return;
@@ -50,37 +50,48 @@ var reactive = function (getter, interval) {
         on_change: function (update) {
             update(v);
             subs.push(update);
+        },
+        clear: function () {
+            clearInterval(interval_id);
         }
     };
 };
 
 var StaticOffsets = (function () {
-    function StaticOffsets(el, user_margins, get_root_offset, need_to_calc_offset, get_prev_sibling) {
+    function StaticOffsets(el, get_root_offset, need_to_calc_offset, get_prev_sibling) {
         if (el === void 0) { el = null; }
-        if (user_margins === void 0) { user_margins = {}; }
         if (get_root_offset === void 0) { get_root_offset = function () { return Math.round(scrollY + (_this.el ? _this.el.getBoundingClientRect().top : 0)); }; }
         if (need_to_calc_offset === void 0) { need_to_calc_offset = function () { return false; }; }
         if (get_prev_sibling === void 0) { get_prev_sibling = function () { return null; }; }
         var _this = this;
         this.el = el;
-        this.user_margins = user_margins;
         this.get_root_offset = get_root_offset;
         this.need_to_calc_offset = need_to_calc_offset;
         this.get_prev_sibling = get_prev_sibling;
+        this.user_margins = {};
         this.root = 0;
         this.top = 0;
         this.get_top_offset = function () {
             return _this.get_sibilings_offset(_this.get_prev_sibling, _this.get_prev_sibling(_this.el), _this.user_margins.margin_top);
         };
-        reactive(this.get_top_offset).on_change(function (top) {
+    }
+    StaticOffsets.prototype.init = function (user_margins) {
+        var _this = this;
+        this.user_margins = user_margins;
+        this.top_watcher = reactive(this.get_top_offset);
+        this.top_watcher.on_change(function (top) {
             _this.top = top;
         });
-        reactive(this.get_root_offset).on_change(function (root) {
+        this.root_watcher = reactive(this.get_root_offset);
+        this.root_watcher.on_change(function (root) {
             _this.root = root;
         });
-    }
-    StaticOffsets.prototype.update = function () {
     };
+    StaticOffsets.prototype.clear = function () {
+        this.top_watcher && this.top_watcher.clear();
+        this.root_watcher && this.root_watcher.clear();
+    };
+    StaticOffsets.prototype.update = function () { };
     StaticOffsets.prototype.get_sibilings_offset = function (next, el, offset) {
         if (offset === void 0) { offset = 0; }
         if (!el) {
@@ -96,13 +107,12 @@ var StaticOffsets = (function () {
 }());
 var DynamicOffsets = (function (_super) {
     __extends(DynamicOffsets, _super);
-    function DynamicOffsets(el, user_margins, get_root_offset, need_to_calc_offset, get_prev_sibling, get_next_sibling) {
+    function DynamicOffsets(el, get_root_offset, need_to_calc_offset, get_prev_sibling, get_next_sibling) {
         if (el === void 0) { el = null; }
-        if (user_margins === void 0) { user_margins = {}; }
         if (need_to_calc_offset === void 0) { need_to_calc_offset = function () { return false; }; }
         if (get_prev_sibling === void 0) { get_prev_sibling = function () { return null; }; }
         if (get_next_sibling === void 0) { get_next_sibling = function () { return null; }; }
-        var _this = _super.call(this, el, user_margins, get_root_offset, need_to_calc_offset, get_prev_sibling) || this;
+        var _this = _super.call(this, el, get_root_offset, need_to_calc_offset, get_prev_sibling) || this;
         _this.get_next_sibling = get_next_sibling;
         _this.bottom = 0;
         _this.max_top_offset = 0;
@@ -112,26 +122,37 @@ var DynamicOffsets = (function (_super) {
         _this.border_box = 0;
         _this.get_height = function () {
             return !_this.el ? 0 :
-                Math.round(Math.max(_this.el.clientHeight, _this.el.scrollHeight, _this.el.getBoundingClientRect().height));
+                Math.round(Math.max(_this.el.clientHeight, _this.el.getBoundingClientRect().height));
         };
         _this.get_bottom_offset = function () {
             return _this.get_sibilings_offset(_this.get_next_sibling, _this.get_next_sibling(_this.el), _this.user_margins.margin_bottom);
         };
-        reactive(_this.get_height).on_change(function (height) {
+        return _this;
+    }
+    DynamicOffsets.prototype.init = function (user_margins) {
+        var _this = this;
+        _super.prototype.init.call(this, user_margins);
+        this.height_watcher = reactive(this.get_height);
+        this.height_watcher.on_change(function (height) {
             _this.height = height;
             _this.border_box = _this.get_border_box();
             _this.relative_top = _this.get_relative_top();
         });
-        reactive(_this.get_bottom_offset).on_change(function (bottom) {
+        this.bottom_offset = reactive(this.get_bottom_offset);
+        this.bottom_offset.on_change(function (bottom) {
             _this.bottom = bottom;
             _this.relative_top = _this.get_relative_top();
         });
-        return _this;
-    }
+    };
+    DynamicOffsets.prototype.clear = function () {
+        _super.prototype.clear.call(this);
+        this.height_watcher && this.height_watcher.clear();
+        this.bottom_offset && this.bottom_offset.clear();
+    };
     DynamicOffsets.prototype.update = function () {
         this.position = this.get_position();
     };
-    DynamicOffsets.prototype.setMaxOffset = function (max_top_offset) {
+    DynamicOffsets.prototype.set_max_offset = function (max_top_offset) {
         this.max_top_offset = max_top_offset;
         this.relative_top = this.get_relative_top();
     };
@@ -166,17 +187,17 @@ var Widget = (function () {
         this.el = el;
         this.get_root_offset = function () { return Math.round(scrollY + (_this.el ? _this.el.getBoundingClientRect().top : 0)); };
         this.need_to_calc_el_offset = function (_) { return false; };
-        this.offsets = new StaticOffsets();
+        this.offsets = new StaticOffsets(this.el, this.get_root_offset);
     }
-    Widget.prototype.render = function () {
-        this.offsets.update();
-    };
     Widget.prototype.mount = function (user_margins) {
         if (user_margins === void 0) { user_margins = {}; }
-        if (!this.el || !this.el.parentElement) {
-            return;
-        }
-        this.offsets = new StaticOffsets(this.el, user_margins, this.get_root_offset);
+        this.offsets.init(user_margins);
+    };
+    Widget.prototype.render = function (_reject) {
+        this.offsets.update();
+    };
+    Widget.prototype.unmount = function () {
+        this.offsets.clear();
     };
     Widget.prototype.getElement = function () {
         return this.el;
@@ -259,10 +280,20 @@ function findWithProperty(el, predicate) {
 
 var PositionWidget = (function (_super) {
     __extends(PositionWidget, _super);
-    function PositionWidget() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
+    function PositionWidget(el) {
+        var _this = _super.call(this, el) || this;
         _this.is_pinned = false;
-        _this.offsets = new DynamicOffsets();
+        _this.init_style = {
+            position: 'static',
+            marginBottom: '',
+            transition: '',
+            transform: '',
+            marginTop: '',
+            padding: '',
+            height: '',
+            width: '',
+            top: ''
+        };
         _this.get_prev_sibling = function (el) {
             return el
                 && !el.classList.contains(StopWidgetClassName)
@@ -270,6 +301,10 @@ var PositionWidget = (function (_super) {
                 || null;
         };
         _this.get_next_sibling = function (el) { return el && !el.classList.contains(StopWidgetClassName) ? el.nextElementSibling : null; };
+        _this.need_to_calc_el_offset = function (el) {
+            return el.classList.contains(FixedWidgetClassName);
+        };
+        _this.offsets = new DynamicOffsets(_this.el, _this.get_root_offset, _this.need_to_calc_el_offset, _this.get_prev_sibling, _this.get_next_sibling);
         return _this;
     }
     PositionWidget.prototype.mount = function (user_margins) {
@@ -277,34 +312,74 @@ var PositionWidget = (function (_super) {
         if (!this.el || !this.el.parentElement) {
             return;
         }
-        this.offsets = new DynamicOffsets(this.el, user_margins, this.get_root_offset, this.need_to_calc_el_offset, this.get_prev_sibling, this.get_next_sibling);
+        this.store_style(getComputedStyle(this.el));
     };
-    PositionWidget.prototype.setMaxOffset = function (max_top_offset) {
-        this.offsets.setMaxOffset(max_top_offset);
+    PositionWidget.prototype.unmount = function () {
+        _super.prototype.unmount.call(this);
+        this.unpin();
+        this.reset_styles();
     };
-    PositionWidget.prototype.render = function () {
-        _super.prototype.render.call(this);
-        this.on_scroll(Math.round(scrollY));
+    PositionWidget.prototype.reset_styles = function () {
+        if (!this.el) {
+            return;
+        }
+        for (var prop in this.init_style) {
+            this.el.style[prop] = '';
+        }
+        this.init_style = {
+            position: 'static',
+            marginBottom: '',
+            transition: '',
+            transform: '',
+            marginTop: '',
+            padding: '',
+            height: '',
+            width: '',
+            top: '',
+        };
+    };
+    PositionWidget.prototype.render = function (reject) {
+        _super.prototype.render.call(this, reject);
+        this.on_scroll(Math.round(scrollY), reject);
     };
     PositionWidget.from = function (root) {
         return _super.from.call(this, root, FixedWidgetClassName);
     };
-    PositionWidget.prototype.on_scroll = function (_scroll_top) {
+    PositionWidget.prototype.on_scroll = function (_scroll_top, _reject) {
         throw new Error('Method is not overridden!');
     };
     PositionWidget.prototype.pin = function () {
-        if (this.is_pinned) {
+        if (this.is_pinned || !this.el) {
             return;
         }
         this.is_pinned = true;
-        this.el && this.el.classList.add(FixedWidgetPinnedClassName);
+        this.el.classList.add(FixedWidgetPinnedClassName);
     };
     PositionWidget.prototype.unpin = function () {
-        if (!this.is_pinned) {
+        if (!this.is_pinned || !this.el) {
             return;
         }
         this.is_pinned = false;
-        this.el && this.el.classList.remove(FixedWidgetPinnedClassName);
+        this.el.classList.remove(FixedWidgetPinnedClassName);
+    };
+    PositionWidget.prototype.store_style = function (style) {
+        this.init_style.position = style.position;
+        this.init_style.top = style.top;
+        this.init_style.marginTop = style.marginTop;
+        this.init_style.marginBottom = style.marginBottom;
+        this.init_style.padding = style.padding;
+        this.init_style.width = style.width;
+        this.init_style.height = style.height;
+        this.init_style.transition = style.transition;
+        this.init_style.transform = style.transform;
+    };
+    PositionWidget.prototype.restore_style = function () {
+        if (!this.el) {
+            return;
+        }
+        for (var prop in this.init_style) {
+            this.el.style[prop] = this.init_style[prop];
+        }
     };
     return PositionWidget;
 }(Widget));
@@ -313,14 +388,6 @@ var FixedWidget = (function (_super) {
     __extends(FixedWidget, _super);
     function FixedWidget(el) {
         var _this = _super.call(this, el) || this;
-        _this.init_style = {
-            position: 'static',
-            marginBottom: '',
-            marginTop: '',
-            padding: '',
-            height: '',
-            width: '',
-        };
         _this.get_root_offset = function () {
             if (!_this.el) {
                 return Number.MAX_VALUE;
@@ -331,9 +398,6 @@ var FixedWidget = (function (_super) {
                 return new_root_offset;
             }
             return (_this.is_pinned ? Math.min : Math.max)(_this.offsets.root, new_root_offset);
-        };
-        _this.need_to_calc_el_offset = function (el) {
-            return el.classList.contains(FixedWidgetClassName);
         };
         if (!_this.el || !_this.el.parentElement) {
             return _this;
@@ -347,21 +411,43 @@ var FixedWidget = (function (_super) {
         if (!this.el) {
             return;
         }
-        this.store_style(getComputedStyle(this.el));
         this.clone();
-        reactive(function () { return _this.offsets.height; }).on_change(function (height) {
+        this.offsets.clear();
+        this.offsets = new DynamicOffsets(this.clone_el, this.get_root_offset, this.need_to_calc_el_offset, this.get_prev_sibling, this.get_next_sibling);
+        this.offsets.init(margins);
+        this.height_watcher = reactive(function () { return _this.offsets.height; });
+        this.height_watcher.on_change(function (height) {
             if (_this.clone_el) {
                 _this.clone_el.style.height = "".concat(height, "px");
             }
         });
     };
-    FixedWidget.prototype.setMaxOffset = function (max_top_offset) {
-        if (max_top_offset === 0 ||
-            max_top_offset < this.offsets.root ||
-            this.offsets.max_top_offset === max_top_offset) {
+    FixedWidget.prototype.unmount = function () {
+        var _a;
+        _super.prototype.unmount.call(this);
+        this.height_watcher.clear();
+        (_a = this.clone_el) === null || _a === void 0 ? void 0 : _a.remove();
+    };
+    FixedWidget.prototype.set_max_offset = function (max_top_offsets) {
+        var _this = this;
+        var max_top_offset = max_top_offsets.find(function (offset) {
+            return offset !== 0 && offset > _this.offsets.root;
+        });
+        if (!max_top_offset) {
             return;
         }
-        this.offsets.setMaxOffset(max_top_offset);
+        this.offsets.set_max_offset(max_top_offset);
+    };
+    FixedWidget.prototype.on_scroll = function (scroll_top) {
+        if (!this.el) {
+            return;
+        }
+        var need_to_fix = scroll_top > this.offsets.root - this.offsets.top;
+        var limited_by_stop_element = this.offsets.max_top_offset !== 0 && scroll_top > this.offsets.relative_top - this.offsets.top;
+        var top = limited_by_stop_element ? this.offsets.relative_top - scroll_top : this.offsets.top;
+        need_to_fix ?
+            this.fix(top) :
+            this.restore_style();
     };
     FixedWidget.prototype.clone = function () {
         var _this = this;
@@ -378,34 +464,15 @@ var FixedWidget = (function (_super) {
         this.clone_el.style.display = 'none';
         this.el.parentElement.insertBefore(this.clone_el, this.el);
     };
-    FixedWidget.prototype.store_style = function (style) {
-        this.init_style.position = style.position;
-        this.init_style.marginTop = style.marginTop;
-        this.init_style.marginBottom = style.marginBottom;
-        this.init_style.padding = style.padding;
-        this.init_style.width = style.width;
-        this.init_style.height = style.height;
-    };
-    FixedWidget.prototype.restore_style = function (style) {
-        if (!this.is_pinned) {
+    FixedWidget.prototype.restore_style = function () {
+        if (!this.is_pinned || !this.el) {
             return;
         }
         this.unpin();
-        style.position = this.init_style.position;
+        _super.prototype.restore_style.call(this);
         if (this.clone_el) {
             this.clone_el.style.display = 'none';
         }
-    };
-    FixedWidget.prototype.on_scroll = function (scroll_top) {
-        if (!this.el) {
-            return;
-        }
-        var need_to_fix = scroll_top > this.offsets.root - this.offsets.top;
-        var limited_by_stop_element = this.offsets.max_top_offset !== 0 && scroll_top > this.offsets.relative_top - this.offsets.top;
-        var top = limited_by_stop_element ? this.offsets.relative_top - scroll_top : this.offsets.top;
-        need_to_fix ?
-            this.fix(top) :
-            this.restore_style(this.el.style);
     };
     FixedWidget.prototype.fix = function (top) {
         if (!this.el) {
@@ -441,9 +508,6 @@ var StickyWidget = (function (_super) {
         var _this = _super.call(this, el) || this;
         _this.borderBox = 0;
         _this.margins = 0;
-        _this.need_to_calc_el_offset = function (el) {
-            return el.classList.contains(FixedWidgetClassName);
-        };
         if (!_this.el || !_this.el.parentElement) {
             return _this;
         }
@@ -452,7 +516,7 @@ var StickyWidget = (function (_super) {
     }
     StickyWidget.prototype.mount = function (margins) {
         _super.prototype.mount.call(this, margins);
-        if (!this.el || !this.el.parentElement) {
+        if (!this.el) {
             return;
         }
         this.el.style.position = 'sticky';
@@ -460,16 +524,20 @@ var StickyWidget = (function (_super) {
         this.el.style.transition = 'transform 0s';
         this.el.style.boxSizing = 'border-box';
     };
-    StickyWidget.prototype.setMaxOffset = function (max_top_offset) {
+    StickyWidget.prototype.set_max_offset = function (max_top_offsets) {
+        var _this = this;
         if (!this.el || !this.el.parentElement) {
             return;
         }
-        if (max_top_offset < this.el.offsetTop) {
+        var max_top_offset = max_top_offsets.find(function (offset) {
+            return _this.el && (offset > _this.el.offsetTop);
+        });
+        if (!max_top_offset) {
             return;
         }
-        this.offsets.setMaxOffset(max_top_offset);
+        this.offsets.set_max_offset(max_top_offset);
     };
-    StickyWidget.prototype.on_scroll = function () {
+    StickyWidget.prototype.on_scroll = function (_scroll_top, _reject) {
         if (!this.el || !this.el.parentElement) {
             return;
         }
@@ -528,12 +596,27 @@ var Sidebar = (function () {
         this.widgets = [];
         this.stop_widgets = [];
         this.isSticky = false;
-        this.setWidgetsMaxOffset = function (max_offset) {
+        this.setWidgetsMaxOffset = function (max_offsets) {
             for (var _i = 0, _a = _this.widgets; _i < _a.length; _i++) {
                 var widget = _a[_i];
-                widget.setMaxOffset(max_offset);
+                widget.set_max_offset(max_offsets);
             }
             _this.render();
+        };
+        this.logWidgetRenderError = function () {
+            console.log("Fixed Widget: fallback to position sticky");
+        };
+        this.onWidgetRenderError = function (w) {
+            _this.logWidgetRenderError();
+            if (!(w instanceof StickyWidget)) {
+                return;
+            }
+            w.unmount();
+            var i = _this.widgets.findIndex(function (widget) { return w === widget; });
+            var widget = new FixedWidget(w.getElement());
+            widget.mount(_this.margins);
+            widget.render(_this.logWidgetRenderError);
+            _this.widgets[i] = widget;
         };
         var isDeprecatedFloatMarkup = !!findWithProperty(this.el, function (style) { return style.float !== 'none'; });
         var isOverflowHiddenMarkup = !!findWithProperty(this.el, function (style) { return style.overflow === 'hidden'; });
@@ -546,6 +629,7 @@ var Sidebar = (function () {
         var WidgetContructor = this.isSticky ? StickyWidget : FixedWidget;
         this.stop_widgets = StopWidget.from(this.el);
         this.widgets = WidgetContructor.from(this.el);
+        this.offsets = new DynamicOffsets(this.el);
         if (!this.isSticky) {
             return;
         }
@@ -557,38 +641,45 @@ var Sidebar = (function () {
     }
     Sidebar.prototype.mount = function () {
         var _this = this;
+        this.offsets.clear();
+        this.max_offset_watcher && this.max_offset_watcher.clear();
+        this.offsets.init(this.margins);
         this.stop_widgets.forEach(function (widget) { widget.mount(); });
         this.widgets.forEach(function (widget) { widget.mount(_this.margins); });
+        this.widgets = this.widgets.sort(function (a, b) { return a.offsets.root - b.offsets.root; });
     };
-    Sidebar.prototype.setMaxOffset = function (general_stop_widgets) {
+    Sidebar.prototype.set_max_offset = function (general_stop_widgets) {
         var is_local_stop_widgets = this.stop_widgets.length != 0;
         var use_top_offset = this.isSticky && is_local_stop_widgets;
         var stop_widgets = is_local_stop_widgets ? this.stop_widgets : general_stop_widgets;
-        reactive(function () {
+        this.max_offset_watcher = reactive(function () {
             if (stop_widgets.length === 0) {
-                return Math.round(document.body.scrollHeight);
+                return [Math.round(document.body.scrollHeight)];
             }
-            var min_offset = use_top_offset ?
-                stop_widgets[0].offsets.top :
-                stop_widgets[0].offsets.root;
-            for (var _i = 0, stop_widgets_1 = stop_widgets; _i < stop_widgets_1.length; _i++) {
-                var widget = stop_widgets_1[_i];
-                var offset = use_top_offset ? widget.offsets.top : widget.offsets.root;
-                if (min_offset > offset) {
-                    min_offset = offset;
-                }
-            }
-            return Math.round(min_offset);
-        }).on_change(this.setWidgetsMaxOffset);
+            return stop_widgets
+                .map(function (widget) { return Math.round(use_top_offset ? widget.offsets.top : widget.offsets.root); })
+                .sort();
+        });
+        this.max_offset_watcher.on_change(this.setWidgetsMaxOffset);
     };
     Sidebar.prototype.render = function () {
         for (var _i = 0, _a = this.stop_widgets; _i < _a.length; _i++) {
             var stop_widget = _a[_i];
-            stop_widget.render();
+            stop_widget.render(this.logWidgetRenderError);
         }
         for (var _b = 0, _c = this.widgets; _b < _c.length; _b++) {
             var widget = _c[_b];
-            widget.render();
+            widget.render(this.onWidgetRenderError);
+        }
+    };
+    Sidebar.prototype.unmount = function () {
+        for (var _i = 0, _a = this.stop_widgets; _i < _a.length; _i++) {
+            var stop_widget = _a[_i];
+            stop_widget.unmount();
+        }
+        for (var _b = 0, _c = this.widgets; _b < _c.length; _b++) {
+            var widget = _c[_b];
+            widget.unmount();
         }
     };
     return Sidebar;
@@ -610,13 +701,16 @@ var Sidebars = (function () {
     }
     Sidebars.prototype.mount = function () {
         this.data.forEach(function (sidebar) { sidebar.mount(); });
-        this.setMaxOffset();
+        this.set_max_offset();
     };
-    Sidebars.prototype.setMaxOffset = function () {
+    Sidebars.prototype.unmonut = function () {
+        this.data.forEach(function (sidebar) { sidebar.unmount(); });
+    };
+    Sidebars.prototype.set_max_offset = function () {
         var general_stop_widgets = this.getGeneralStopElements();
         for (var _i = 0, _a = this.data; _i < _a.length; _i++) {
             var sidebar = _a[_i];
-            sidebar.setMaxOffset(general_stop_widgets);
+            sidebar.set_max_offset(general_stop_widgets);
         }
     };
     Sidebars.prototype.getGeneralStopElements = function () {
@@ -642,7 +736,14 @@ var Sidebars = (function () {
         });
         fixedWidgetsContainers.forEach(function (c) { c.classList.add(FixedWidgetClassName); });
         stopWidgetsUniqContainers.forEach(function (c) { c.classList.add(StopWidgetClassName); });
-        return new Sidebars(fixedWidgetsContainers.concat(stopWidgetsUniqContainers), options);
+        var widgetContainers = fixedWidgetsContainers.concat(stopWidgetsUniqContainers)
+            .filter(function (container) {
+            var hasNestedWidget = container.innerHTML.includes(FixedWidgetClassName) ||
+                container.innerHTML.includes(StopWidgetClassName);
+            hasNestedWidget && console.warn('Fixed Widget: Detected nested widget in ', container);
+            return !hasNestedWidget;
+        });
+        return new Sidebars(widgetContainers, options);
     };
     return Sidebars;
 }());
@@ -655,16 +756,22 @@ var Plugin = (function () {
             Plugin.sidebars.render();
             return;
         }
-        Plugin.sidebars = Sidebars.new(options.reduce(function (prev, cur) { return (__assign(__assign(__assign({}, prev), cur), { widgets: prev.widgets.concat(cur.widgets || []) })); }, { widgets: [] }));
+        Plugin.sidebars = Sidebars.new(options.reduce(function (prev, cur) { return (__assign(__assign(__assign({}, prev), cur), { stop_elements_selectors: "".concat(prev.stop_elements_selectors, "\n").concat(cur.stop_elements_selectors), widgets: (prev.widgets || []).concat(cur.widgets || []) })); }));
         document.addEventListener('scroll', Plugin.sidebars.render);
+        window.addEventListener('resize', function () {
+            Plugin.sidebars.unmonut();
+            setTimeout(function () {
+                Plugin.sidebars.mount();
+                Plugin.sidebars.render();
+            });
+        });
         Plugin.sidebars.mount();
     }
     return Plugin;
 }());
 
-window.addEventListener('load', onDocumentLoaded);
+document.addEventListener("DOMContentLoaded", onDocumentLoaded);
 document.readyState === "complete" && onDocumentLoaded();
-onDocumentLoaded();
 function onDocumentLoaded() {
     var admin_panel = document.querySelector('#wpadminbar');
     var user_options = window['q2w3_sidebar_options'] || [{}];
@@ -678,5 +785,5 @@ function onDocumentLoaded() {
     })) {
         return;
     }
-    new Plugin(options, '6.0.7-3');
+    new Plugin(options, '6.0.7-9');
 }

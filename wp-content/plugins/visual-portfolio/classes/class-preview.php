@@ -230,9 +230,12 @@ class Visual_Portfolio_Preview {
         // Disable the WP admin bar.
         add_filter( 'show_admin_bar', '__return_false' );
 
+        // Avoid Cloudflare's Rocket Loader lazy load the editor iframe.
+        add_filter( 'script_loader_tag', array( $this, 'rocket_loader_filter' ) );
+
         // Enqueue assets.
         wp_enqueue_script( 'iframe-resizer-content', visual_portfolio()->plugin_url . 'assets/vendor/iframe-resizer/js/iframeResizer.contentWindow.min.js', array(), '4.2.11', true );
-        wp_enqueue_script( 'visual-portfolio-preview', visual_portfolio()->plugin_url . 'assets/js/preview.min.js', array( 'jquery', 'iframe-resizer-content' ), '2.18.0', true );
+        wp_enqueue_script( 'visual-portfolio-preview', visual_portfolio()->plugin_url . 'assets/js/preview.min.js', array( 'jquery', 'iframe-resizer-content' ), '2.19.0', true );
 
         // Post data for script.
         wp_localize_script(
@@ -265,7 +268,7 @@ class Visual_Portfolio_Preview {
             }
         }
 
-        // Elementor preview.
+        // Elementor widget preview.
         if ( isset( $_REQUEST['vp_preview_type'] ) && 'elementor' === $_REQUEST['vp_preview_type'] && isset( $_REQUEST['vp_preview_frame_id'] ) ) {
             $options[ 'id' ] = esc_attr( wp_unslash( $_REQUEST['vp_preview_frame_id'] ) );
         }
@@ -275,7 +278,7 @@ class Visual_Portfolio_Preview {
         Visual_Portfolio_Assets::enqueue( $options );
 
         // Custom styles.
-        visual_portfolio()->include_template_style( 'visual-portfolio-preview', 'preview/style', array(), '2.18.0' );
+        visual_portfolio()->include_template_style( 'visual-portfolio-preview', 'preview/style', array(), '2.19.0' );
 
         // Output template.
         visual_portfolio()->include_template(
@@ -285,6 +288,17 @@ class Visual_Portfolio_Preview {
                 'class_name' => $class_name,
             )
         );
+    }
+
+    /**
+     * Disable rocket loader in preview.
+     *
+     * @param String $tag - tag string.
+     *
+     * @return String
+     */
+    public function rocket_loader_filter( $tag ) {
+        return str_replace( '<script', '<script data-cfasync="false"', $tag );
     }
 }
 

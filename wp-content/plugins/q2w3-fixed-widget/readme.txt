@@ -3,7 +3,7 @@ Contributors: webzunft, max-bond, advancedads
 Tags: fixed widget, sticky widget, sidebar, ads, widget, fixed, sticky, floating, sticky block, adsense
 Requires at least: 5.0
 Tested up to: 6.0
-Stable tag: 6.1.0
+Stable tag: 6.1.1
 
 More attention and a higher ad performance with fixed sticky widgets.
 
@@ -80,6 +80,11 @@ Use the options `Minimum Screen Width` and `Minimum Screen Height` to disable st
 3. Fixed Widget option for legacy widgets
 
 == Changelog ==
+
+= 6.1.1 =
+
+- Improvement: reposition the fixed widget when the screen is resized, e.g., a mobile device turned into landscape mode
+- Improvement: various optimizations for specific themes and setups reported by users
 
 = 6.1.0 =
 

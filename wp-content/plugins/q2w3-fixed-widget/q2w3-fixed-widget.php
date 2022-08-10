@@ -5,7 +5,7 @@ Plugin URI: https://wpadvancedads.com/fixed-widget-wordpress/
 Description: Use the fixed widget plugin to create sticky widgets that stay in the visible screen area when the page is scrolled up or down and boost your conversions.
 Text Domain: q2w3-fixed-widget
 Author: Thomas Maier, Max Bond
-Version: 6.1.0
+Version: 6.1.1
 Author URI: https://wpadvancedads.com/fixed-widget-wordpress/
 */
 
@@ -23,7 +23,7 @@ class q2w3_fixed_widget {
 
 	const ID = 'q2w3_fixed_widget';
 
-	const VERSION = '6.1.0';
+	const VERSION = '6.1.1';
 
 	protected static $sidebars_widgets;
 

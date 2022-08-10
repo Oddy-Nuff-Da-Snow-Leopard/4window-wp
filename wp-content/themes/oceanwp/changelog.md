@@ -1,5 +1,14 @@
 # OceanWP Changelog
 
+### _2022.08.09_ - 3.3.4
+- **NEW**: Admin Settings section in OceanWP Panel.
+- **Added**: Social Menu for Header and Top Bar: Discord option.
+- **Tweak**: Option to install OceanWP Child Theme moved to Ocean Extra plugin.
+- **Tweak**: Typography: Host Google Fonts locally option moved to Ocean Extra plugin.
+- **Tweak**: Typography: Default OceanWP front-end font changed to Arial following WordPress GDPR recommendations.
+- **Fixed**: Mobile Search Icon: Search on tablet and mobile not responding #389
+- **Removed**: HTML5 dependencies for IE8.
+
 ### _2022.06.14_ - 3.3.3
 - **Added**: Accessibility: WooCommerce: Single Product: Aria labels for product navigation.
 - **Added**: Accessibility: WooCommerce: Single Product: Related Products: Aria label for product quick view.

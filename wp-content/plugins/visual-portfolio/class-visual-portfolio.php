@@ -2,7 +2,7 @@
 /**
  * Plugin Name:  Visual Portfolio, Posts & Image Gallery
  * Description:  Modern gallery and portfolio plugin with advanced layouts editor. Clean and powerful gallery styles with enormous settings in the Gutenberg block.
- * Version:      2.18.0
+ * Version:      2.19.0
  * Author:       nK
  * Author URI:   https://nkdev.info
  * License:      GPLv2 or later

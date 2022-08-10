@@ -173,7 +173,7 @@ class Visual_Portfolio_Settings {
      */
     public static function admin_enqueue_scripts( $page ) {
         if ( 'portfolio_page_visual-portfolio-settings' === $page || 'toplevel_page_visual-portfolio-settings' === $page ) {
-            wp_enqueue_script( 'visual-portfolio-archive-page-selector', visual_portfolio()->plugin_url . 'assets/admin/js/archive-page-selector.min.js', array( 'jquery', 'select2' ), '2.18.0', true );
+            wp_enqueue_script( 'visual-portfolio-archive-page-selector', visual_portfolio()->plugin_url . 'assets/admin/js/archive-page-selector.min.js', array( 'jquery', 'select2' ), '2.19.0', true );
         }
     }
 
@@ -310,7 +310,7 @@ class Visual_Portfolio_Settings {
                     'placeholder' => (string) $default_breakpoints['xl'],
                     'default'     => (float) $default_breakpoints['xl'],
                     // translators: %1$s - default breakpoint.
-                    'desc'        => sprintf( wp_kses_post( __( 'Sets the breakpoint on extra large screen sizes (Default: %1$spx).', 'visual-portfolio' ) ), $default_breakpoints['xl'] ),
+                    'desc'        => sprintf( esc_html__( 'Sets the breakpoint on extra large screen sizes (Default: %1$spx).', 'visual-portfolio' ), $default_breakpoints['xl'] ),
                     'is_pro'      => true,
                 ),
                 array(
@@ -322,7 +322,7 @@ class Visual_Portfolio_Settings {
                     'placeholder' => (string) $default_breakpoints['lg'],
                     'default'     => (float) $default_breakpoints['lg'],
                     // translators: %1$s - default breakpoint.
-                    'desc'        => sprintf( wp_kses_post( __( 'Sets the breakpoint on large screen sizes (Default: %1$spx).', 'visual-portfolio' ) ), $default_breakpoints['lg'] ),
+                    'desc'        => sprintf( esc_html__( 'Sets the breakpoint on large screen sizes (Default: %1$spx).', 'visual-portfolio' ), $default_breakpoints['lg'] ),
                     'is_pro'      => true,
                 ),
                 array(
@@ -334,7 +334,7 @@ class Visual_Portfolio_Settings {
                     'placeholder' => (string) $default_breakpoints['md'],
                     'default'     => (float) $default_breakpoints['md'],
                     // translators: %1$s - default breakpoint.
-                    'desc'        => sprintf( wp_kses_post( __( 'Sets the breakpoint on medium screen sizes (Default: %1$spx).', 'visual-portfolio' ) ), $default_breakpoints['md'] ),
+                    'desc'        => sprintf( esc_html__( 'Sets the breakpoint on medium screen sizes (Default: %1$spx).', 'visual-portfolio' ), $default_breakpoints['md'] ),
                     'is_pro'      => true,
                 ),
                 array(
@@ -346,7 +346,7 @@ class Visual_Portfolio_Settings {
                     'placeholder' => (string) $default_breakpoints['sm'],
                     'default'     => (float) $default_breakpoints['sm'],
                     // translators: %1$s - default breakpoint.
-                    'desc'        => sprintf( wp_kses_post( __( 'Sets the breakpoint on small screen sizes (Default: %1$spx).', 'visual-portfolio' ) ), $default_breakpoints['sm'] ),
+                    'desc'        => sprintf( esc_html__( 'Sets the breakpoint on small screen sizes (Default: %1$spx).', 'visual-portfolio' ), $default_breakpoints['sm'] ),
                     'is_pro'      => true,
                 ),
                 array(
@@ -358,7 +358,7 @@ class Visual_Portfolio_Settings {
                     'placeholder' => (string) $default_breakpoints['xs'],
                     'default'     => (float) $default_breakpoints['xs'],
                     // translators: %1$s - default breakpoint.
-                    'desc'        => sprintf( wp_kses_post( __( 'Sets the breakpoint on extra small screen sizes (Default: %1$spx).', 'visual-portfolio' ) ), $default_breakpoints['xs'] ),
+                    'desc'        => sprintf( esc_html__( 'Sets the breakpoint on extra small screen sizes (Default: %1$spx).', 'visual-portfolio' ), $default_breakpoints['xs'] ),
                     'is_pro'      => true,
                 ),
             ),
@@ -375,6 +375,20 @@ class Visual_Portfolio_Settings {
                         // translators: %s - plugin brand name.
                         'vp'   => sprintf( esc_html__( '%s Only', 'visual-portfolio' ), visual_portfolio()->plugin_name ),
                         'full' => esc_html__( 'All images', 'visual-portfolio' ),
+                    ),
+                ),
+                array(
+                    'name'        => 'lazy_loading_excludes',
+                    'label'       => esc_html__( 'Lazy Loading Excludes', 'visual-portfolio' ),
+                    // translators: %s - doc url.
+                    // translators: %s - link text.
+                    'desc'        => sprintf( __( 'Listed images will not be lazy loaded. Both full URLs and partial strings can be used. One per line. <a href="%1$s">%2$s</a>', 'visual-portfolio' ), 'https://visualportfolio.co/docs/settings/images/', esc_html__( 'More info', 'visual-portfolio' ) ),
+                    'type'        => 'textarea',
+                    'placeholder' => "image-example.webp\nslider-image-classname",
+                    'condition'   => array(
+                        array(
+                            'control'  => '[name="vp_images[lazy_loading]"]',
+                        ),
                     ),
                 ),
 
@@ -675,7 +689,7 @@ class Visual_Portfolio_Settings {
                             <h3>' . esc_html__( 'Premium Only', 'visual-portfolio' ) . '</h3>
                             <div>
                                 <p>' . esc_html__( 'Protect your works using watermarks', 'visual-portfolio' ) . '</p>
-                                <a class="vpf-pro-note-button" target="_blank" rel="noopener noreferrer" href="https://visualportfolio.co/pricing/?utm_source=plugin&utm_medium=settings_page&utm_campaign=watermarks&utm_content=2.18.0">' . esc_html__( 'Go Pro', 'visual-portfolio' ) . '</a>
+                                <a class="vpf-pro-note-button" target="_blank" rel="noopener noreferrer" href="https://visualportfolio.co/pricing/?utm_source=plugin&utm_medium=settings_page&utm_campaign=watermarks&utm_content=2.19.0">' . esc_html__( 'Go Pro', 'visual-portfolio' ) . '</a>
                             </div>
                         </div>
                     ',
@@ -690,7 +704,7 @@ class Visual_Portfolio_Settings {
                             <h3>' . esc_html__( 'Premium Only', 'visual-portfolio' ) . '</h3>
                             <div>
                                 <p>' . esc_html__( 'Social feeds such as Instagram, Youtube, Flickr, Twitter, etc...', 'visual-portfolio' ) . '</p>
-                                <a class="vpf-pro-note-button" target="_blank" rel="noopener noreferrer" href="https://visualportfolio.co/pricing/?utm_source=plugin&utm_medium=settings_page&utm_campaign=social_feeds&utm_content=2.18.0">' . esc_html__( 'Go Pro', 'visual-portfolio' ) . '</a>
+                                <a class="vpf-pro-note-button" target="_blank" rel="noopener noreferrer" href="https://visualportfolio.co/pricing/?utm_source=plugin&utm_medium=settings_page&utm_campaign=social_feeds&utm_content=2.19.0">' . esc_html__( 'Go Pro', 'visual-portfolio' ) . '</a>
                             </div>
                         </div>
                     ',
@@ -705,7 +719,7 @@ class Visual_Portfolio_Settings {
                             <h3>' . esc_html__( 'Premium Only', 'visual-portfolio' ) . '</h3>
                             <div>
                                 <p>' . esc_html__( 'Remove our plugin brand and logos from Front and Admin areas', 'visual-portfolio' ) . '</p>
-                                <a class="vpf-pro-note-button" target="_blank" rel="noopener noreferrer" href="https://visualportfolio.co/pricing/?utm_source=plugin&utm_medium=settings_page&utm_campaign=white_label&utm_content=2.18.0">' . esc_html__( 'Go Pro', 'visual-portfolio' ) . '</a>
+                                <a class="vpf-pro-note-button" target="_blank" rel="noopener noreferrer" href="https://visualportfolio.co/pricing/?utm_source=plugin&utm_medium=settings_page&utm_campaign=white_label&utm_content=2.19.0">' . esc_html__( 'Go Pro', 'visual-portfolio' ) . '</a>
                             </div>
                         </div>
                     ',

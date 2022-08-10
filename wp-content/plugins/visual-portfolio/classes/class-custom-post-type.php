@@ -307,7 +307,7 @@ class Visual_Portfolio_Custom_Post_Type {
 
         global $wp_version;
 
-        $check_string = 'Plugin: 2.18.0 WP: ' . $wp_version;
+        $check_string = 'Plugin: 2.19.0 WP: ' . $wp_version;
 
         if ( get_option( 'visual_portfolio_updated_caps' ) === $check_string ) {
             return;
@@ -787,7 +787,7 @@ class Visual_Portfolio_Custom_Post_Type {
             esc_html__( 'Documentation', 'visual-portfolio' ),
             esc_html__( 'Documentation', 'visual-portfolio' ),
             'manage_options',
-            'https://visualportfolio.co/docs/getting-started/?utm_source=plugin&utm_medium=admin_menu&utm_campaign=docs&utm_content=2.18.0'
+            'https://visualportfolio.co/docs/getting-started/?utm_source=plugin&utm_medium=admin_menu&utm_campaign=docs&utm_content=2.19.0'
         );
     }
 
@@ -831,7 +831,7 @@ class Visual_Portfolio_Custom_Post_Type {
                                 </h3>
                                 <div>
                                     <p><?php echo esc_html__( 'Send a collection of photographs to your client for approval.', 'visual-portfolio' ); ?></p>
-                                    <a class="vpf-pro-note-button" target="_blank" rel="noopener noreferrer" href="https://visualportfolio.co/pricing/?utm_source=plugin&amp;utm_medium=settings_page&amp;utm_campaign=proofing&amp;utm_content=2.18.0">
+                                    <a class="vpf-pro-note-button" target="_blank" rel="noopener noreferrer" href="https://visualportfolio.co/pricing/?utm_source=plugin&amp;utm_medium=settings_page&amp;utm_campaign=proofing&amp;utm_content=2.19.0">
                                     <?php echo esc_html__( 'Go Pro', 'visual-portfolio' ); ?>
                                     </a>
                                 </div>
