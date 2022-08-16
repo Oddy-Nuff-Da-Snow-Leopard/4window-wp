@@ -99,8 +99,14 @@ body .plwao-loader-wrap {
 		overflow-y: overlay;
 }
 
+.fancybox-slide--complete {
+		overflow: hidden !important;
+		white-space: nowrap;
+		overflow-y: overlay;
+}
+
 body {
-		width: 100%;
+	width: 100%;
 }
 		
 .ekit-wid-con .elementskit-info-image-box.style-modern .elementskit-box-body {
@@ -117,4 +123,24 @@ body {
 
 .vp-svg-icon {
 	color: black;
+}
+
+/* Карниз парма для римских штор */
+#popmake-5359 {
+		margin-left: -35%;
+		width: 70%;
+}
+
+/* Карниз парма для римских штор */
+.vp-uid-0626adc3 .vp-portfolio__item .vp-portfolio__item-img img {
+	width: auto;
+	height: auto;
+  margin: auto;
+}
+
+/* Карниз профильный алюминиевый */
+.vp-uid-78a7ffce .vp-portfolio__item .vp-portfolio__item-img img {
+	width: auto;
+	height: auto;
+  margin: auto;
 }

@@ -1,4 +1,4 @@
-/*! elementor - v3.7.0 - 08-08-2022 */
+/*! elementor - v3.7.1 - 14-08-2022 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["kit-library"],{
 
 /***/ "../core/app/modules/kit-library/assets/js/components/badge.scss":
@@ -1580,7 +1580,7 @@ function Header(props) {
       event_type: eventType
     });
   },
-      _onClose = function onClose() {
+      onClose = function onClose() {
     eventTracking('kit-library/close', props === null || props === void 0 ? void 0 : props.pageId, props === null || props === void 0 ? void 0 : props.kitName);
     window.top.location = elementorAppConfig.admin_url;
   };
@@ -1606,9 +1606,7 @@ function Header(props) {
     }
   }, /*#__PURE__*/_react.default.createElement(_headerButtons.default, {
     buttons: props.buttons,
-    onClose: function onClose() {
-      return _onClose();
-    }
+    onClose: onClose
   })));
 }
 
@@ -5013,4 +5011,4 @@ exports["default"] = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=kit-library.6541ecdc008644261c67.bundle.js.map
+//# sourceMappingURL=kit-library.c5429de58e642ebfda4d.bundle.js.map
