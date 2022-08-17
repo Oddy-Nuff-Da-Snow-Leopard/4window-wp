@@ -125,11 +125,11 @@ body {
 	color: black;
 }
 
-/* Карниз парма для римских штор */
-#popmake-5359 {
-		margin-left: -35%;
-		width: 70%;
-}
+/* Карниз парма для римских штор 
+.pum-container.pum-responsive.pum-responsive-medium {
+		margin-left: -32% !important;
+		width: 64% !important;
+}*/
 
 /* Карниз парма для римских штор */
 .vp-uid-0626adc3 .vp-portfolio__item .vp-portfolio__item-img img {
